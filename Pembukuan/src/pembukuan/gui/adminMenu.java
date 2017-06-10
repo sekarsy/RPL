@@ -857,22 +857,9 @@ public class adminMenu extends javax.swing.JFrame {
         addPaket.setVisible(false);
 
         try {
-            int idpaket = 0;
             String item = (String) paketSelect.getSelectedItem();
-            ConnectionClass c = new ConnectionClass();
-            c.setConnection();
-            ResultSet rs;
-            rs = c.statement.executeQuery("select id from paket where nama_paket = '" + item + "'");
-            System.out.println("bb");
-            while (rs.next()) {
-                idpaket = Integer.parseInt(rs.getString("id"));
-            }
-            System.out.println(idpaket);
-            c.statement.executeUpdate("UPDATE  paket SET "
-                    + "jumlah_barang=(select count(*) from barang where id_paket = '" + idpaket + "'), "
-                    + "harga=(select SUM(harga_barang) from barang where id_paket = '" + idpaket + "') "
-                    + "WHERE id = '" + idpaket + "';"
-            );
+            Admin a = new Admin();
+            a.tambahPaket(item);
             System.out.println("Paket Disimpan");
             showPaket();
         } catch (Exception e) {
